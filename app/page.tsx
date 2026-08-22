@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { assetPath } from "./assets";
 import { properties } from "./data";
-import { BookingBar, EditorialSlider, PropertyCard, SiteShell } from "./ui";
+import { BookingBar, DestinationSelector, EditorialSlider, SiteShell } from "./ui";
 
 export default function Home() {
   return (
@@ -22,10 +22,7 @@ export default function Home() {
         <div><h2>真正的奢华，<br />是一个地方仍然像它自己。</h2><p>我们寻找沿海的风、山谷的雾、旧城的尺度，再让建筑与服务安静地退到它们身后。每一家 Lumen House 都拥有不同的节奏，却共享同一种克制。</p></div>
       </section>
 
-      <section className="featured-grid section-pad">
-        <div className="section-heading" data-reveal><p className="section-label">02 / WHERE TO NEXT</p><h2>三种地貌，<br />三种停留方式。</h2><Link href="/hotels">查看完整酒店名录 ↗</Link></div>
-        <div className="property-stack">{properties.slice(0, 3).map((property, index) => <PropertyCard key={property.id} property={property} index={index} />)}</div>
-      </section>
+      <DestinationSelector items={properties.slice(0, 3)} />
 
       <section className="split-story" data-reveal>
         <div className="split-image"><Image unoptimized src={assetPath("/images/suite-ocean.webp")} alt="面向海面的套房" fill sizes="(max-width: 800px) 100vw, 56vw" /></div>

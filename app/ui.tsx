@@ -204,6 +204,73 @@ export function PropertyCard({ property, index = 0 }: { property: Property; inde
   );
 }
 
+export function DestinationSelector({ items }: { items: Property[] }) {
+  const [active, setActive] = useState(0);
+  const item = items[active];
+  const tone = ["coast", "island", "valley"][active] ?? "coast";
+  const selectRelative = (delta: number) => setActive((value) => (value + delta + items.length) % items.length);
+
+  return (
+    <section className={`destination-selector tone-${tone}`} aria-labelledby="destination-selector-title">
+      <div className="destination-rail">
+        <header>
+          <p className="section-label">02 / WHERE TO NEXT</p>
+          <h2 id="destination-selector-title">从地貌开始，<br />选择停留。</h2>
+          <p>海岸、岛屿与杉谷，不是三张酒店图片，而是三种不同的时间与感受。</p>
+        </header>
+
+        <div className="destination-tabs" role="tablist" aria-label="选择目的地">
+          {items.map((property, index) => (
+            <button
+              key={property.id}
+              type="button"
+              role="tab"
+              aria-selected={active === index}
+              aria-controls="destination-panel"
+              className={active === index ? "is-active" : ""}
+              onClick={() => setActive(index)}
+              onMouseEnter={() => setActive(index)}
+              onFocus={() => setActive(index)}
+              onKeyDown={(event) => {
+                if (event.key === "ArrowDown" || event.key === "ArrowRight") { event.preventDefault(); selectRelative(1); }
+                if (event.key === "ArrowUp" || event.key === "ArrowLeft") { event.preventDefault(); selectRelative(-1); }
+              }}
+            >
+              <span>0{index + 1}</span>
+              <span><strong>{property.name}</strong><small>{property.chinese} · {property.region}</small></span>
+              <i aria-hidden="true">↗</i>
+            </button>
+          ))}
+        </div>
+
+        <div className="destination-rail-foot">
+          <span>HOVER / CLICK TO CHANGE</span>
+          <Link href="/hotels">完整酒店名录 ↗</Link>
+        </div>
+      </div>
+
+      <div className="destination-stage" id="destination-panel" role="tabpanel" aria-live="polite">
+        <div className="destination-stage-image" key={`${item.id}-image`}>
+          <Image unoptimized src={item.image} alt={`${item.chinese}酒店及其所在${item.region}环境`} fill sizes="(max-width: 900px) 100vw, 62vw" />
+        </div>
+        <div className="destination-stage-shade" />
+        <div className="destination-stage-top"><span>{item.location}</span><span>{item.note}</span></div>
+        <div className="destination-stage-copy" key={`${item.id}-copy`}>
+          <p>0{active + 1} / 0{items.length} · {item.region}</p>
+          <h3>{item.chinese}</h3>
+          <h4>{item.name}</h4>
+          <p>{item.blurb}</p>
+          <div><span>每晚起 {item.from}</span><Link href="/property">查看这处居所 <i>↗</i></Link></div>
+        </div>
+        <div className="destination-stage-controls" aria-label="切换目的地">
+          <button type="button" onClick={() => selectRelative(-1)} aria-label="上一个目的地">←</button>
+          <button type="button" onClick={() => selectRelative(1)} aria-label="下一个目的地">→</button>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function EditorialSlider({ items }: { items: Property[] }) {
   const [active, setActive] = useState(0);
   const [direction, setDirection] = useState<"next" | "prev">("next");
@@ -231,3 +298,4 @@ function SiteFooter() {
     </footer>
   );
 }
+
