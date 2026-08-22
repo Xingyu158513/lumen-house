@@ -85,3 +85,16 @@
 
 @media(prefers-reduced-motion:reduce){.destination-selector{transition:none}.destination-stage-image,.destination-stage-image img,.destination-stage-copy{animation:none}}
 
+/* Iteration 007 — readable editorial small type */
+:root{--type-body:clamp(16px,1.08vw,17px);--type-label:11px;--type-control:12px;--type-meta:11px;--type-caption:12px}
+
+.section-label,.hero-kicker,.hero-title>p,.menu-count,.menu-overlay nav small,.booking-drawer form>p,.booking-drawer label,.booking-bar label span,.property-copy>p:first-child,.slider-copy>p:first-child,.journal-grid article>p,.collection-intro>p:first-child,.result-count,.property-hero-copy>p,.property-overview dd,.suite-info>p:first-child,.ritual-grid span,.reserve-page>header>p,.step-copy>p,.stay-step label,.confirm-step label,.room-options>button>span,.room-options small,.reserve-complete>p:first-of-type,.destination-tabs button>span:first-child,.destination-tabs small,.destination-stage-top,.destination-stage-copy>p:first-child{font-size:var(--type-label)}
+
+.menu-trigger,.reserve-trigger,.header-nav,.overlay-close,.drawer-close,.primary-action,.hero-title>div a,.booking-bar button,.section-heading>a,.split-copy>a,.slider-copy a,.journal-grid article a,.footer-lead a,.collection-tools button,.property-hero-copy a,.property-subnav,.dining-feature a,.step-actions>button:first-child,.back-link,.destination-rail-foot,.destination-stage-copy a{font-size:var(--type-control)}
+
+.menu-overlay nav span,.menu-foot,.booking-drawer form>small,.hero-scroll,.image-index,.property-image>i,.property-copy h4,.property-copy>div,.split-copy li,.slider-controls span,.footer-grid nav,.footer-grid>div:nth-child(3),.footer-legal,.collection-tools label,.property-hero-copy span,.property-hero-index,.suite-info>div,.destination-stage-copy>div,.booking-feedback,.drawer-feedback,.reserve-form-feedback,.selection-recap{font-size:var(--type-caption)}
+
+.wordmark span,.footer-grid span{font-size:8px}.hero-message small{font-size:var(--type-label)}.hero-title>div.hero-message p{font-size:15px}.booking-bar select,.booking-bar input,.collection-tools input{font-size:14px}.manifesto>div>p,.property-copy>p,.split-copy>p:nth-of-type(2),.slider-copy>p,.collection-intro>p:last-child,.property-overview>div>p,.suite-info>p,.dining-feature p,.ritual-grid p,.step-copy>p:last-child{font-size:var(--type-body)}.destination-rail header>p:last-child,.destination-stage-copy>p:nth-of-type(2){font-size:16px}.destination-stage-copy h4{font-size:14px}.room-options>button>p{font-size:14px}.stay-summary dl div{font-size:12px}
+
+@media(max-width:560px){:root{--type-body:16px;--type-label:11px;--type-control:12px;--type-meta:11px;--type-caption:12px}.reserve-trigger{font-size:var(--type-control)}.hero-message small{font-size:11px}.hero-title>div.hero-message p{font-size:14px}.destination-rail header>p:last-child,.destination-stage-copy>p:nth-of-type(2){font-size:15px}.destination-tabs small{font-size:11px;letter-spacing:.08em}.destination-tabs strong,.destination-tabs button.is-active strong{font-size:19px}.destination-stage-copy>div>span{font-size:11px}.destination-stage-copy a{font-size:12px}.booking-feedback,.drawer-feedback,.reserve-form-feedback{font-size:12px}.reserve-page>header span{font-size:10px}}
+

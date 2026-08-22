@@ -8,4 +8,5 @@
 | [004](iteration-004-first-visit-message.md) | 2026-08-22 | 让首次访问者在首屏看见受众、核心主张和下一步操作 | 用户否决，保留为失败样本 |
 | [005](iteration-005-typographic-integration.md) | 2026-08-22 | 撤销信息卡，把中文主张重新融入酒店编辑式首屏 | 完成 |
 | [006](iteration-006-place-selector.md) | 2026-08-22 | 把重复酒店卡片重构为以地貌为核心的视觉选择器 | 完成 |
+| [007](iteration-007-readable-small-type.md) | 2026-08-22 | 提高全站小字下限，兼顾编辑感与实际可读性 | 完成 |
 

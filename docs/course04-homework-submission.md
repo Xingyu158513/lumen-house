@@ -43,11 +43,17 @@ https://xingyu158513.github.io/lumen-house/
 
 当用户移动或点击“YURA COURTYARD”时，左侧选中层级、页面底色、右侧图片和全部酒店信息会同步变化。动效不是单纯装饰，而是用来说明当前选择已经改变。
 
+## 可读性二次校准
+
+在目的地结构调整完成后，又根据实际观看反馈提高了全站小字下限：正文统一为 `16–17px`，标签为 `11px`，按钮和功能文字为 `12px`。手机端没有简单等比缩小，而是继续保持 `16px` 正文，并单独校正三个目的地标签的字号与字距。
+
+![移动端可读性调整](iterations/assets/iteration-007-type-mobile.png)
+
 ## 调整结果
 
 第一次进入这个模块的用户，现在可以在同一个画面中理解三处居所的差异，确认当前地点，并知道下一步会进入哪一家酒店。优化同时对应了内容表达、视觉层级、留白、对比度和交互反馈，并且保留了网站原有的高端酒店设计语言。
 
 ## AI 迭代说明
 
-早期方案曾尝试在首屏增加深色中文信息卡，但它破坏了原有留白与摄影感，因此被明确记录为失败方案并撤销。本次从更早的信息结构问题出发，把视觉优化落在目的地选择模块。完整过程见[迭代 004](iterations/iteration-004-first-visit-message.md)、[迭代 005](iterations/iteration-005-typographic-integration.md)和[迭代 006](iterations/iteration-006-place-selector.md)。
+早期方案曾尝试在首屏增加深色中文信息卡，但它破坏了原有留白与摄影感，因此被明确记录为失败方案并撤销。本次从更早的信息结构问题出发，把视觉优化落在目的地选择模块，再通过小字校准解决真实阅读反馈。完整过程见[迭代 004](iterations/iteration-004-first-visit-message.md)、[迭代 005](iterations/iteration-005-typographic-integration.md)、[迭代 006](iterations/iteration-006-place-selector.md)和[迭代 007](iterations/iteration-007-readable-small-type.md)。
 
