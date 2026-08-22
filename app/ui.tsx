@@ -4,7 +4,29 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { FormEvent, ReactNode, useEffect, useRef, useState } from "react";
-import { navItems, Property } from "./data";
+import { bookingDestinations, navItems, Property } from "./data";
+
+const bookingParties = [
+  { value: "2-0", label: "2位住客", drawerLabel: "2位成人 · 1间客房", adults: "2", children: "0" },
+  { value: "1-0", label: "1位住客", drawerLabel: "1位成人 · 1间客房", adults: "1", children: "0" },
+  { value: "2-1", label: "家庭出行", drawerLabel: "2位成人 · 1位儿童", adults: "2", children: "1" },
+] as const;
+
+function bookingHref(destination: string, checkIn: string, checkOut: string, party: string) {
+  const selectedParty = bookingParties.find((item) => item.value === party) ?? bookingParties[0];
+  const params = new URLSearchParams({
+    destination,
+    checkIn,
+    checkOut,
+    adults: selectedParty.adults,
+    children: selectedParty.children,
+  });
+  return `/reserve?${params.toString()}`;
+}
+
+function hasValidDateRange(checkIn: string, checkOut: string) {
+  return Boolean(checkIn && checkOut && checkOut > checkIn);
+}
 
 export function SiteShell({ children, tone = "light" }: { children: ReactNode; tone?: "light" | "dark" }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -96,11 +118,27 @@ export function SiteShell({ children, tone = "light" }: { children: ReactNode; t
 
 function BookingDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
   const router = useRouter();
-  const [destination, setDestination] = useState("海隅 HAEON COAST");
-  const submit = (event: FormEvent) => {
+  const [destination, setDestination] = useState("haeon");
+  const [checkIn, setCheckIn] = useState("2026-09-18");
+  const [checkOut, setCheckOut] = useState("2026-09-21");
+  const [party, setParty] = useState("2-0");
+  const [feedback, setFeedback] = useState("所选条件会完整带入下一步");
+  const [feedbackTone, setFeedbackTone] = useState<"hint" | "error" | "success">("hint");
+  const [submitting, setSubmitting] = useState(false);
+  const submit = async (event: FormEvent) => {
     event.preventDefault();
+    if (!hasValidDateRange(checkIn, checkOut)) {
+      setFeedback("请确认离店日期晚于入住日期");
+      setFeedbackTone("error");
+      return;
+    }
+    setSubmitting(true);
+    setFeedback("正在保留目的地、日期与住客信息…");
+    setFeedbackTone("success");
+    await new Promise((resolve) => window.setTimeout(resolve, 420));
     onClose();
-    router.push(`/reserve?destination=${encodeURIComponent(destination)}`);
+    router.push(bookingHref(destination, checkIn, checkOut, party));
+    setSubmitting(false);
   };
   return (
     <aside className={`booking-drawer ${open ? "is-open" : ""}`} aria-hidden={!open} inert={!open} aria-label="查询入住日期">
@@ -108,10 +146,11 @@ function BookingDrawer({ open, onClose }: { open: boolean; onClose: () => void }
       <form onSubmit={submit}>
         <button type="button" className="drawer-close" onClick={onClose}>关闭 <span>×</span></button>
         <p>DIRECT RESERVATIONS</p><h2>开始一段<br />安静的旅程</h2>
-        <label>目的地<select value={destination} onChange={(e) => setDestination(e.target.value)}><option>海隅 HAEON COAST</option><option>屿庭 YURA COURTYARD</option><option>雾麓 MORU VALLEY</option></select></label>
-        <div className="drawer-dates"><label>入住<input type="date" defaultValue="2026-09-18" /></label><label>离店<input type="date" defaultValue="2026-09-21" /></label></div>
-        <label>住客<select defaultValue="2位成人 · 1间客房"><option>2位成人 · 1间客房</option><option>1位成人 · 1间客房</option><option>2位成人 · 1位儿童</option></select></label>
-        <button className="primary-action" type="submit">查看房型与价格 <span>→</span></button>
+        <label>目的地<select value={destination} onChange={(e) => setDestination(e.target.value)}>{bookingDestinations.map((item) => <option key={item.id} value={item.id}>{item.label}</option>)}</select></label>
+        <div className="drawer-dates"><label>入住<input type="date" value={checkIn} onChange={(e) => setCheckIn(e.target.value)} required /></label><label>离店<input type="date" value={checkOut} min={checkIn} onChange={(e) => setCheckOut(e.target.value)} required /></label></div>
+        <label>住客<select value={party} onChange={(e) => setParty(e.target.value)}>{bookingParties.map((item) => <option key={item.value} value={item.value}>{item.drawerLabel}</option>)}</select></label>
+        <button className="primary-action" type="submit" disabled={submitting}><span>{submitting ? "正在准备下一步" : "查看房型与价格"}</span><span>{submitting ? "···" : "→"}</span></button>
+        <p className={`drawer-feedback is-${feedbackTone}`} role="status" aria-live="polite">{feedback}</p>
         <small>直接预订礼遇：早餐 · 延迟退房 · 到店欢迎礼</small>
       </form>
     </aside>
@@ -120,18 +159,35 @@ function BookingDrawer({ open, onClose }: { open: boolean; onClose: () => void }
 
 export function BookingBar() {
   const router = useRouter();
-  const [destination, setDestination] = useState("海隅 · 东海岸");
-  const submit = (event: FormEvent) => {
+  const [destination, setDestination] = useState("haeon");
+  const [checkIn, setCheckIn] = useState("2026-09-18");
+  const [checkOut, setCheckOut] = useState("2026-09-21");
+  const [party, setParty] = useState("2-0");
+  const [feedback, setFeedback] = useState("选择会被保留到下一步");
+  const [feedbackTone, setFeedbackTone] = useState<"hint" | "error" | "success">("hint");
+  const [submitting, setSubmitting] = useState(false);
+  const submit = async (event: FormEvent) => {
     event.preventDefault();
-    router.push(`/reserve?destination=${encodeURIComponent(destination)}`);
+    if (!hasValidDateRange(checkIn, checkOut)) {
+      setFeedback("离店日期需要晚于入住日期");
+      setFeedbackTone("error");
+      return;
+    }
+    setSubmitting(true);
+    setFeedback("正在为你保留本次选择…");
+    setFeedbackTone("success");
+    await new Promise((resolve) => window.setTimeout(resolve, 420));
+    router.push(bookingHref(destination, checkIn, checkOut, party));
+    setSubmitting(false);
   };
   return (
-    <form className="booking-bar" onSubmit={submit} aria-label="搜索酒店">
-      <label><span>DESTINATION</span><select value={destination} onChange={(e) => setDestination(e.target.value)}><option>海隅 · 东海岸</option><option>屿庭 · 南方群岛</option><option>雾麓 · 北境杉谷</option></select></label>
-      <label><span>CHECK IN</span><input type="date" defaultValue="2026-09-18" /></label>
-      <label><span>CHECK OUT</span><input type="date" defaultValue="2026-09-21" /></label>
-      <label><span>GUESTS</span><select defaultValue="2位住客"><option>2位住客</option><option>1位住客</option><option>家庭出行</option></select></label>
-      <button type="submit"><span>查询可订房</span><i>↗</i></button>
+    <form className={`booking-bar ${submitting ? "is-submitting" : ""}`} onSubmit={submit} aria-label="搜索酒店">
+      <label><span>DESTINATION</span><select value={destination} onChange={(e) => setDestination(e.target.value)}>{bookingDestinations.map((item) => <option key={item.id} value={item.id}>{item.shortLabel}</option>)}</select></label>
+      <label><span>CHECK IN</span><input type="date" value={checkIn} onChange={(e) => setCheckIn(e.target.value)} required /></label>
+      <label><span>CHECK OUT</span><input type="date" value={checkOut} min={checkIn} onChange={(e) => setCheckOut(e.target.value)} required /></label>
+      <label><span>GUESTS</span><select value={party} onChange={(e) => setParty(e.target.value)}>{bookingParties.map((item) => <option key={item.value} value={item.value}>{item.label}</option>)}</select></label>
+      <button type="submit" disabled={submitting}><span>{submitting ? "正在准备" : "查询可订房"}</span><i>{submitting ? "···" : "↗"}</i></button>
+      <p className={`booking-feedback is-${feedbackTone}`} role="status" aria-live="polite">{feedback}</p>
     </form>
   );
 }

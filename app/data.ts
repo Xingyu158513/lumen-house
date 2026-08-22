@@ -1,5 +1,11 @@
 import { assetPath } from "./assets";
 
+export const bookingDestinations = [
+  { id: "haeon", label: "海隅 HAEON COAST", shortLabel: "海隅 · 东海岸", name: "HAEON COAST", chinese: "海隅" },
+  { id: "yura", label: "屿庭 YURA COURTYARD", shortLabel: "屿庭 · 南方群岛", name: "YURA COURTYARD", chinese: "屿庭" },
+  { id: "moru", label: "雾麓 MORU VALLEY", shortLabel: "雾麓 · 北境杉谷", name: "MORU VALLEY", chinese: "雾麓" },
+] as const;
+
 export type Property = {
   id: string;
   name: string;
