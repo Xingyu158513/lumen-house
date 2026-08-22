@@ -57,3 +57,9 @@
 
 @media(max-width:900px){.booking-feedback{left:15px;bottom:-25px}.selection-recap{margin-bottom:35px}}
 @media(max-width:560px){.booking-feedback{left:15px;bottom:-28px;font-size:9px;letter-spacing:.03em}.drawer-feedback{font-size:11px}.reserve-form-feedback{font-size:12px}}
+
+/* Iteration 004 — visible first-visit message hierarchy */
+.hero-title>div.hero-message{right:0;bottom:-12px;width:min(390px,30vw);padding:24px 26px 20px;border-top:2px solid rgba(255,255,255,.92);background:rgba(5,10,11,.58);backdrop-filter:blur(10px);box-shadow:0 20px 55px rgba(0,0,0,.16)}.hero-message small{display:block;margin-bottom:16px;color:rgba(255,255,255,.76);font-size:10px;letter-spacing:.12em;line-height:1.6}.hero-message h2{margin:0 0 16px;font-family:var(--serif);font-size:clamp(32px,3.1vw,46px);font-weight:400;line-height:1.02;letter-spacing:-.025em}.hero-title>div.hero-message p{margin:0 0 20px;font-size:13px;line-height:1.7}.hero-title>div.hero-message a{padding:12px 0 0;border-top:1px solid rgba(255,255,255,.5);font-size:11px}.hero-title>div.hero-message a i{font-size:16px}.hero-title h1{max-width:68vw;font-size:clamp(72px,7.8vw,118px);line-height:.82}
+
+@media(max-width:900px){.hero-title>div.hero-message{position:static;width:min(520px,100%);margin-top:24px;padding:18px 20px 16px}.hero-message small{margin-bottom:10px;font-size:9px}.hero-message h2{margin-bottom:10px;font-size:clamp(30px,7vw,40px)}.hero-title>div.hero-message p{max-width:440px;margin-bottom:14px;font-size:13px}.hero-title h1{max-width:none}}
+@media(max-width:560px){.hero-title{bottom:42px}.hero-title>p{margin-bottom:16px}.hero-title h1{font-size:clamp(52px,14.5vw,58px)}.hero-title>div.hero-message{margin-top:18px;padding:14px 16px 12px}.hero-message small{font-size:8px}.hero-message h2{font-size:clamp(27px,7.8vw,32px)}.hero-title>div.hero-message p{font-size:12px;line-height:1.55}.hero-title>div.hero-message a{font-size:10px}}
