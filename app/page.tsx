@@ -11,7 +11,7 @@ export default function Home() {
         <div className="hero-media"><Image unoptimized src={assetPath("/images/hero-coast.webp")} alt="海崖上的原创酒店建筑" fill priority sizes="100vw" /></div>
         <div className="hero-overlay" />
         <div className="hero-kicker"><span>37°18&apos; N</span><span>EAST COAST · 2026</span></div>
-        <div className="hero-title"><p>AN ORIGINAL COLLECTION OF PLACES</p><h1><span>STAYS SHAPED</span><span>BY PLACE.</span></h1><div className="hero-message"><small>为在意建筑、自然与安静节奏的旅行者</small><h2>住进一个地方<br />本来的样子。</h2><p>三处原创目的地酒店，从海岸、岛屿到杉谷，让建筑退后，让风景成为停留的主角。</p><Link href="/hotels">先看三处居所 <i>→</i></Link></div></div>
+        <div className="hero-title"><p>AN ORIGINAL COLLECTION OF PLACES</p><h1><span>STAYS SHAPED</span><span>BY PLACE.</span></h1><div className="hero-message"><small>为在意建筑、自然与安静节奏的旅行者</small><h2>让酒店退后，<br />让地方发生。</h2><p>海岸、岛屿与杉谷中的三处原创停留。</p><Link href="/hotels">查看三处居所 <i>↗</i></Link></div></div>
         <div className="hero-scroll"><span>SCROLL TO DISCOVER</span><i /></div>
       </section>
 
@@ -46,3 +46,4 @@ export default function Home() {
     </SiteShell>
   );
 }
+
